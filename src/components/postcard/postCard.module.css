@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  /*    background-color: var(--contrastBg); */
+  background-color: var(--softBg);
+  border-radius: 20px;
+  margin-top: 20px;
+  color: var(--textColor);
+  
+}
+
+.container:hover{
+  background-color: var(--bg);
+
+}
+
+.top {
+  display: flex;
+}
+
+
+.imgContainer {
+  width: 100%; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+  position: relative;
+  overflow: hidden; /* Ensure image stays within container */
+  border-radius: 20px; /* Add rounded corners */
+}
+
+.img {
+  width: 100%; /* Ensure image fills its container */
+  height: 100%; /* Ensure image fills its container */
+  object-fit: cover; /* Maintain aspect ratio */
+}
+
+.title {
+  width: 90%;
+  font-size: 24px;
+  color: var(--textColor);
+}
+
+.desc {
+  width: 90%;
+  font-weight: 300;
+  color: var(--softTextColor);
+}
+
+
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Align items at the start and end of the container */
+  color: var(--textColor);
+  gap: 10px;
+}
+
+
+.address {
+  color: var(--textColor);
+  background-color: var(--softBgAddress); /* Add border around the address */
+  padding: 5px 10px; /* Add padding to the address */
+  border-radius: 20px; /* Add rounded corners to the border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-between; /* Align items at the start and end of the container */
+}
+
+
+.link {
+  text-decoration: underline;
+}
+
+.etaread {
+  display: flex;
+  align-items: center;
+  color: var(--softTextColor);
+  font-size: 14px; /* adjust font size as needed */
+  gap:2px;
+}
