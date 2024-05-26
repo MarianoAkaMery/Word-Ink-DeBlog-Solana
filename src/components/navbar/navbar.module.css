@@ -1,0 +1,56 @@
+
+.container {
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.left,.center,.right {
+  flex:1;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--softTextColor);
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+
+}
+
+.navItems {
+  display: flex;
+  align-items: center; /* Add this line */
+  justify-content: center;
+}
+.rightItems {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap:10px;
+}
+
+@media (max-width: 768px){
+  .left,.center{
+
+    flex:0;
+
+  }
+  .container{
+    margin: 10px 0;
+  }
+  .navLinks{
+    order: 1;
+  }
+  .toggle{
+    order:2;
+  }
+  .walletButtonContainer {
+      margin-right: 0; /* Reset margin */
+      margin-left: auto; /* Pushes the wallet button to the right */
+  }  
+}
+

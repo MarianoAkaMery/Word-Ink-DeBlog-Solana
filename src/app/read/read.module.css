@@ -1,0 +1,74 @@
+.container {
+    display: flex;
+    border-radius: 20px;
+    min-height: calc(100vh - 110px - 100px);
+    background-color:var(--blurredbg);
+    gap:10px;
+    padding: 20px;
+    box-shadow: 0 25px 50px -12px var(--rblurredbg);/* Add shadow effect */
+
+}
+.sidebar {
+    width: 200px;
+    background-color: var(--softBg); /* Use a soft background color */
+    color: var(--textColor);
+    padding: 20px;
+    border-radius: 10px; /* Add some border radius for a modern look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
+  }
+  
+  .sidebar h6 {
+    color: var(--textColor); /* Use the same text color as the main content */
+  }
+  
+  .sidebar .community-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: var(--contrastBg); /* Use a contrasting background color for items */
+    border-radius: 5px;
+  }
+  
+  .sidebar .community-item:hover {
+    background-color: var(--softBg); /* Darken the background color on hover */
+    cursor: pointer;
+  }
+  
+  
+  .mainContent {
+    flex: 1; /* Ensure main content fills remaining space */
+  }
+  
+  .title {
+    font-size: 36px;
+    color: var(--textColor);
+  }
+  
+  .desc {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 20px;
+    color: var(--textColor);
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column; /* Change to column layout for smaller screens */
+    }
+  
+    .sidebar {
+      display: none;
+    }
+  
+    .mainContent {
+      padding-left: 0; /* Remove left padding for main content on smaller screens */
+    }
+  
+    .title {
+      font-size: 28px;
+    }
+  
+    .desc {
+      font-size: 1.2rem;
+    }
+  }
+  

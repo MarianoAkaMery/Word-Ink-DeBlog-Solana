@@ -1,0 +1,78 @@
+.modalBackdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  color: rgb(0, 255, 170); 
+  font-size: 48px; 
+  margin-bottom: 20px; 
+} 
+
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: var(--bg);
+  color: var(--textColor);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* subtle shadow effect */
+}
+
+.textareaTitle,
+.textareaSubtitle {
+  background-color: transparent;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  /* subtle shadow effect */
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--textColor);
+  border: 1px solid #ddd;
+  resize: none;
+  font-style: inherit;
+}
+
+.textareaSubtitle{
+  height: 80px;
+}
+.modalArticle{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:10px;
+  
+  background-color: var(--bg);
+  color: var(--textColor);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* subtle shadow effect */
+}
+
+.bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.textareaSubtitle::placeholder,
+.textareaTitle::placeholder {
+  color: var(--softTextColor);
+  /* Placeholder text color */
+}
+
+.frank {
+  background-color: red;
+}
