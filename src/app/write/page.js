@@ -34,7 +34,6 @@ const WritePage = () => {
   const [transactionPending, setTransactionPending] = useState(false);
   const [titleError, setTitleError] = useState("");
   const [subtitleError, setSubtitleError] = useState("");
-  const [contentError, setContentError] = useState("");
 
   const program = useProgram();
 
@@ -100,10 +99,7 @@ const WritePage = () => {
       return;
     }
 
-    if (content.length > 64) {
-      setContentError("Content cannot exceed 64 characters");
-      return;
-    }
+    
 
     setShowInputModal(false);
 
