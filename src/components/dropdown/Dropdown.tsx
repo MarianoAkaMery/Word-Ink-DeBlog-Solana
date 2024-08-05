@@ -1,13 +1,11 @@
 import { useState, useEffect, useRef, FC, ReactNode } from 'react';
 import styles from './dropdown.module.css';
 
-// Define the type for menu items
 interface MenuItem {
   label: string;
   href: string;
 }
 
-// Define the props for the Dropdown component
 interface DropdownProps {
   menuItems: MenuItem[];
   children: ReactNode;
@@ -47,7 +45,7 @@ const Dropdown: FC<DropdownProps> = ({ menuItems, children }) => {
       {isOpen && (
         <div className={styles.dropdownContent}>
           {menuItems.map((item, index) => (
-            <a key={index} href={item.href} onClick={toggleDropdown}>
+            <a key={index} href={item.href} target="_blank" rel="noopener noreferrer" onClick={toggleDropdown}>
               {item.label}
             </a>
           ))}
