@@ -1,0 +1,116 @@
+:root {
+  --neutral-50:  #f8fafc;
+  --neutral-100: #f1f5f9;
+  --neutral-200: #e2e8f0;
+  --neutral-300: #cbd5e1;
+  --neutral-400: #94a3b8;
+  --neutral-500: #64748b;
+  --neutral-600: #475569;
+  --neutral-700: #334155;
+  --neutral-800: #1e293b;
+  --neutral-900: #0f172a;
+  --neutral-950: #020617;
+  --accent: #0ea5e9;
+  --accent-hover: #80ccef50;
+}
+
+
+/* Dark theme */
+.dark {
+  --bg: var(--neutral-950);
+  --softBg: var(--neutral-800);
+  --hover: var(--netural-700);
+  --textColor: var(--neutral-200);
+  --softTextColor: var(--neutral-400);
+}
+
+/* Light theme */
+.light {
+  --bg: var(--neutral-100);
+  --softBg: var(--neutral-200);
+  --hover: var(--netural-200);
+  --textColor: var(--neutral-800);
+  --softTextColor: var(--neutral-400);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+html{
+    overflow-x: hidden; /* Prevent overflow-x on the root elements */
+}
+.container {
+  width:100vw; /* Use 100% to make it as wide as possible */
+  min-height: 100vh;
+  padding: 0 2rem; /* Add padding to the container */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--bg);
+  color: var(--textColor);
+
+}
+
+
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* Not found section */
+.notfound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--textColor);
+}
+
+/* responsiveness */
+@media (max-width: 1536px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}
+
+@media (max-width: 1366px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}
+
+@media (max-width: 1280px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}
+
+@media (max-width: 475px) {
+  .container {
+    width: 100%; /* Maintain full width */
+  }
+}

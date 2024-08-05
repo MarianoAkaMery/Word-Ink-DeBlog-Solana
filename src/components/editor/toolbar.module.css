@@ -1,0 +1,39 @@
+/*toolbar styling*/
+.customToolbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: var(--bg);
+    gap: 1rem;
+    border-bottom: 1px solid var(--softBg); /* Add this line */
+  }
+  
+  .customToolbarBtn {
+    background-color: var(--bg);
+    color: var(--softTextColor);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 0.5rem;
+
+  }
+  
+  .customToolbarBtn:hover {
+    background-color: var(--softBg); /* Transparent background with a slight tint */
+  }
+  
+  .customToolbarBtnActive {
+    background-color: var(--softBg); /* Transparent background with a slight tint */
+    color: var(--softTextColor);
+    cursor: pointer;
+    border: none;
+    padding: 10px;
+    border-radius: 0.5rem;
+  }
+
+.icon{
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+

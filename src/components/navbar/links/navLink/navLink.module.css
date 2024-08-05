@@ -1,0 +1,30 @@
+.container {
+  padding-inline: 1rem;
+  text-decoration: none; /* Remove default underline */
+  color: var(--softTextColor); /* Default text color */
+}
+
+.text{
+  margin-top: auto; /* Push text to the bottom */
+}
+.active {
+  color: var(--textColor);
+}
+
+.container:hover {
+  color: var(--textColor);
+}
+
+.icon{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .text {
+    display: none;
+  }
+  .icon{
+    display: inline-block;
+    font-size: 24px; /* Adjust the size as needed */
+  }
+}

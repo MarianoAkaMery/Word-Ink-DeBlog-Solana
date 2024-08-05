@@ -1,0 +1,203 @@
+.modalBackdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.opaqueBackdrop{
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-color: var(--softBg);
+  /* semi-transparent black background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.icon {
+  color: var(--accent); 
+  font-size: 48px; 
+} 
+.closeButton {
+  position: absolute;
+  color: var(--textColor);
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modalContent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  background-color: var(--bg);
+  color: var(--textColor);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.textareaTitle,
+.textareaSubtitle {
+  background-color: transparent;
+  border: 1px solid var(--softBg);
+  color: var(--textColor);
+  padding: 10px;
+  resize: none;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 400;
+  /* Add box-sizing to include padding and border in width */
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+}
+
+.textareaSubtitle::placeholder,
+.textareaTitle::placeholder {
+  color: var(--softTextColor);
+}
+
+
+.textareaTitle:focus,
+.textareaSubtitle:focus {
+  border: 1px solid var(--accent);
+  outline: none; /* remove default outline */
+}
+
+
+.modalArticleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  color: var(--textColor);
+  width: 80vw; /* 80% of the viewport width */
+  height: 80vh; /* 80% of the viewport height */
+  align-items: center;
+}
+.modalArticle{
+  width: 75%;
+}
+.modalShare{
+  padding: 1rem;
+}
+.modalProfile {
+  position: relative;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: space-between; /* Distribute space between children */
+  color: var(--textColor);
+  width: 30vw;
+  height: 40vh;
+}
+
+
+.modalArticle h1{
+  color: var(--accent);
+}
+
+.articleInfo{
+
+display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap:10px;
+}
+.articleTextInfo{
+  font-size: 13px;
+  line-height: 18px;
+  display: flex;
+  flex: 1;
+  gap: 10px;
+  flex-direction: column;
+  align-items:flex-start;
+}
+
+.dropdownCategory{
+  background-color: var(--bg);
+  color: var(--textColor);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 0.5rem;
+  text-align: left; /* Align text to the left */
+  display: flex; /* Flex to add icon alignment */
+  justify-content: space-between; /* Space between text and icon */
+  align-items: center; /* Center items vertically */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+.dropdownCategory option {
+  background-color: var(--bg);
+  color: var(--textColor);
+  padding: 10px;
+}
+.bottom{
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+/*Share Modal */
+.actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap:1rem;
+}
+.actions button{
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  border: 1px solid var(--softTextColor);
+  border-radius: 0.5rem;
+
+}
+.actions button:hover{
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  border: 1px solid var(--textColor);
+  border-radius: 0.5rem;
+  
+}
+
+.saveEditProfile {
+  padding: 0.5rem;
+  background-color: var(--softBg);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; /* Ensure it appears above other content inside the banner */
+  transition: border-color 0.3s ease; /* Smooth transition for hover effect */
+  margin-top: auto; /* Push the button to the bottom of the container */
+}
+.saveEditProfile:hover{
+  background-color: var(--accent-hover);
+}
+@media (max-width:768px) {
+
+.articleInfo{
+  flex-direction: column;
+}
+
+}

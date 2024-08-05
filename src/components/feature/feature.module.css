@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    /* Semi-transparent white background */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Light border with some transparency */
+    backdrop-filter: blur(10px);
+    /* Frosted glass effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+}
+
+.container h2 {
+    font-size: 24px;
+    color: var(--accent);
+    /* Light text color for contrast */
+}
+
+.content {
+    margin-top: 10px;
+}
+
+.container p {
+    font-size: 16px;
+    color: var(--textColor);
+    line-height: 1.5;
+}

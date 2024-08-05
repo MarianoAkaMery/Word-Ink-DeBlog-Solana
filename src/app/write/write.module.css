@@ -1,0 +1,109 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    height: calc(100vh - 110px - 60px);
+    gap: 10px;
+    color: var(--textColor);
+    padding-inline:400px;
+}
+.textareaTitle,
+.textareaSubtitle {
+  background-color: transparent;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* subtle shadow effect */
+  border-radius: 4px;
+  font-size: 14px;
+  color: var(--textColor);
+  border: 1px solid #ddd;
+  resize: none;
+  font-style: inherit;
+}
+.textareaTitle:focus,
+.textareaSubtitle:focus {
+  border-color: black; /* change border to black on focus */
+  outline: none; /* remove default outline */
+}
+.top,
+.bottom {
+    flex: 0;
+}
+
+.center {
+    flex: 1;
+    overflow-x: hidden;
+}
+
+.titleArea {
+    font-size: 36px;
+}
+
+.textarea {
+    font-size: 24px;
+    color: var(--textColor)
+}
+
+/* .titleArea,
+.textarea {
+    border-radius: 20px;
+    background-color: green;
+    color: var(--textColor);
+    font-family: inherit;
+    height: 100%;
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+} */
+.titleArea::placeholder,
+.textarea::placeholder {
+    color: var(--softTextColor);
+}
+
+.buttonarea {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+.button {
+    min-width: 120px;
+    padding: 10px ;
+    font-weight:500;
+    border-radius: 0.5rem;
+    text-align: center;
+    background-color: var(--softBg);
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1; /* Ensure it appears above other content inside the banner */
+    transition: border-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+.button:hover{
+  background-color: var(--accent-hover);
+}
+
+.icon {
+    color: rgb(0, 255, 170); /* Green color */
+    font-size: 48px; /* Adjust the size of the icon */
+    margin-bottom: 20px; /* Add some space below the icon */
+  }
+
+  @media (max-width: 1400px) {
+    .container{
+        padding-inline: 150px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container{
+        padding-inline: 20px;
+    }
+  }
