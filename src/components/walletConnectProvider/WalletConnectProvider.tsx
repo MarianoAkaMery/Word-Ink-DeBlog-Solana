@@ -5,7 +5,6 @@ import { useMemo } from "react"; // library we use to interact with the solana j
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import * as walletAdapterWallets from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { clusterApiUrl } from "@solana/web3.js";
 import {
   ConnectionProvider,
   WalletProvider,
@@ -13,9 +12,6 @@ import {
 
 const WalletConnectProvider = ({ children }: { children: React.ReactNode }) => {
   const network = WalletAdapterNetwork.Devnet;
-  // Replace with your custom RPC URL
-  const customRpcUrl = "https://devnet.helius-rpc.com/?api-key=466d756e-98f1-45ed-8ee9-09fb5346eb06";
-  const endpoint = useMemo(() => customRpcUrl, [network]); // Use custom RPC URL
 
   const wallets = useMemo(
     () => [new walletAdapterWallets.PhantomWalletAdapter()],
@@ -23,7 +19,7 @@ const WalletConnectProvider = ({ children }: { children: React.ReactNode }) => {
   );
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
+    <ConnectionProvider endpoint={'https://yolo-morning-yard.solana-devnet.quiknode.pro/0d90ab7feefcfce268e695b29e43f84ade7170af/'}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
