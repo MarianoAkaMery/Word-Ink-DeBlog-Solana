@@ -254,18 +254,69 @@ const PostSinglePage = ({ params }) => {
     }
   };
 
+  
+
   useEffect(() => {
-    const fetchPostData = async () => {
-      if (slug && !isFetched.current) {
-        isFetched.current = true;
-        // Fetch post data logic here
-        // Example: const data = await fetchPost(slug);
-        // setSinglePosts(data);
-        // calculateReadingTime(data.content);
+
+    const handleGet = async (uri) => {
+      const getUrl = `https://api.akord.com/files/${uri}`;
+  
+      try {
+        const response = await fetch(getUrl, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Api-Key": "6kkSOcoyyF68IJu69YSuJ54wTFwakC11aJpYoPoe",
+            "Content-Type": "text/plain",
+          },
+        });
+  
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Error fetching from Akord:", errorData);
+        } else {
+          const responseData = await response.text(); // Use .text() to get HTML content as string
+          setSinglePosts((prevPost) => ({
+            ...prevPost,
+            content: responseData,
+          }));
+        }
+      } catch (error) {
+        console.error("An error occurred while fetching from Akord:", error);
       }
     };
-    fetchPostData();
-  }, [slug]);
+
+    
+    const loadPost = async () => {
+      try {
+        const rawPosts = await program.account.postAccount.fetch(slug);
+        setSinglePosts(rawPosts);
+        updateAbbreviatedAddress(rawPosts.authority);
+        setUpvoteCount(rawPosts.upvote);
+        setDownvoteCount(rawPosts.downvote);
+        setupVoters(rawPosts.upvoters);
+        setdownVoters(rawPosts.downvoters);
+
+        if (rawPosts.content) {
+          await handleGet(rawPosts.content);
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
+    };
+
+    if (program && slug && postSingle == null && !isFetched.current) {
+      console.log("fetching...");
+      isFetched.current = true; // Mark as fetched
+      loadPost();
+    }
+  }, [program, slug]);
+
+  useEffect(() => {
+    if (postSingle && postSingle.content) {
+      calculateReadingTime(postSingle.content);
+    }
+  }, [postSingle]);
 
   return (
     <div className={styles.container}>
