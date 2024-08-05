@@ -21,18 +21,14 @@ const ReadPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isFetching, setIsFetching] = useState(false); // Add fetching state
   const { connection } = useConnection();
   const { publicKey, wallet } = useWallet();
   const program = useProgram();
   const observer = useRef();
 
   const fetchPosts = async (page) => {
-    console.log("FETCHING ALL");
-    setIsFetching(true); // Set fetching state to true
     try {
       const rawPosts = await program.account.postAccount.all();
-      console.log(rawPosts)
       const formattedPosts = rawPosts.map(({ publicKey, account }) => ({
         id: publicKey.toString(),
         authorAddress: account.authority.toString(),
@@ -85,17 +81,12 @@ const ReadPage = () => {
       })));
     } catch (error) {
       console.error("Error fetching posts:", error);
-    } finally {
-      setIsFetching(false); // Reset fetching state after operation
     }
   };
 
   useEffect(() => {
-    // Check if we are already fetching to avoid duplicate fetches
-    if (!isFetching) {
-      fetchPosts(currentPage);
-    }
-  }, [connection, publicKey, program, currentPage]); // Remove `wallet` from dependencies
+    fetchPosts(currentPage);
+  }, [connection, publicKey, program, wallet, currentPage]);
 
   useEffect(() => {
     let filtered = postAccount;
