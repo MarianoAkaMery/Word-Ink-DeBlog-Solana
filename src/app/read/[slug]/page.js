@@ -425,18 +425,18 @@ const PostSinglePage = ({ params }) => {
 };
 
 const ActionModal = ({ isOpen, closeModal, message, Icon, actionButton }) => (
-  <Modal isOpen={isOpen} closeModal={closeModal} className={modalStyle.modal}>
-    <div className={modalStyle.modalContent}>
-      <Icon className={modalStyle.modalIcon} />
-      <h2 className={modalStyle.modalTitle}>{message.title}</h2>
-      <p className={modalStyle.modalBody}>{message.body}</p>
-      {actionButton && (
-        <button onClick={actionButton.onClick} className={modalStyle.actionButton}>
-          {actionButton.text}
-        </button>
-      )}
-      <button onClick={closeModal} className={modalStyle.closeButton}>Close</button>
+  <Modal isOpen={isOpen} closeModal={closeModal} variant="transparent">
+    <div>
+    <Icon className={modalStyle.icon}/>
+    <h1 className={modalStyle.modalTitle}>{message.title}</h1>
+    <p className={modalStyle.modalBody}>{message.body}</p>
+
     </div>
+    {actionButton && (
+      <button onClick={actionButton.onClick} className={modalStyle.actionButton}>
+        {actionButton.text}
+      </button>
+    )}
   </Modal>
 );
 
