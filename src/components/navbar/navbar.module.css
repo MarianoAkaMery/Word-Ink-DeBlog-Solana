@@ -1,8 +1,12 @@
-
 .container {
-  height: 50px;
+  height: 60px;
   display: flex;
   align-items: center;
+  position: sticky; /* Makes the Navbar stick to the top */
+  top: 0; /* Sticks the Navbar to the top of the viewport */
+  z-index: 1000; /* Ensure the Navbar stays on top of other elements */
+  background-color: var(--bg); /* Ensures the Navbar background is consistent */
+  padding: 0px 20px;
 }
 
 .left, .center, .right {
