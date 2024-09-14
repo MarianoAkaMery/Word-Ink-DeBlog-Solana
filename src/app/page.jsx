@@ -1,34 +1,41 @@
 "use client";
+
 import styles from "./read.module.css";
 import PostList from "../app/read/components/postList";
 import PostElement from "../app/read/components/PostElement";
 import AccountElement from "../app/read/components/accountElement";
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { HiSearch } from "react-icons/hi";
 import CategoryList from "../app/read/components/CategoryList";
 import useProgram from "../hooks/user_program/load_program.js";
-import debounce from 'lodash.debounce';
+import debounce from "lodash.debounce";
+import Link from "next/link";
 
-const PAGE_SIZE = 2;
+const CHUNK_SIZE = 10; // Number of posts to load at each scroll event
 
 const ReadPage = () => {
-  const [postAccount, setPosts] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState([]);
-  const [trendingPosts, setTrendingPosts] = useState([]);
-  const [trendingAccounts, setTrendingAccounts] = useState([]);
+  // State management
+  const [postAccount, setPostAccount] = useState([]);
+  const [displayedPosts, setDisplayedPosts] = useState([]); // Posts currently displayed on the screen
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPosts, setTotalPosts] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(CHUNK_SIZE); // Control how many posts are displayed
+
+  // Hooks for wallet and connection
   const { connection } = useConnection();
-  const { publicKey, wallet } = useWallet();
+  const { publicKey } = useWallet();
   const program = useProgram();
   const observer = useRef();
 
-  const fetchPosts = async (page) => {
+  // Fetch all posts from the blockchain
+  const fetchPosts = async () => {
     try {
+      if (!program) return; // Ensure the program is ready
+
       const rawPosts = await program.account.postAccount.all();
+
+      // Map raw data to formatted posts
       const formattedPosts = rawPosts.map(({ publicKey, account }) => ({
         id: publicKey.toString(),
         authorAddress: account.authority.toString(),
@@ -44,76 +51,48 @@ const ReadPage = () => {
         slug: account.title.replace(/\s+/g, "-").toLowerCase(),
       }));
 
-      const uniquePosts = Array.from(new Map(formattedPosts.map(post => [post.id, post])).values());
-      uniquePosts.sort((a, b) => b.createdAt - a.createdAt);
-      setTotalPosts(uniquePosts.length);
+      // Sort posts by creation date
+      const sortedPosts = formattedPosts.sort((a, b) => b.createdAt - a.createdAt);
 
-      const offset = (page - 1) * PAGE_SIZE;
-      const paginatedPosts = uniquePosts.slice(offset, offset + PAGE_SIZE);
-
-      setPosts((prevPosts) => {
-        const prevPostIds = new Set(prevPosts.map(post => post.id));
-        const newPosts = paginatedPosts.filter(post => !prevPostIds.has(post.id));
-        return [...prevPosts, ...newPosts];
-      });
-
-      const sortedByUpvotes = [...uniquePosts].sort((a, b) => b.upvote - a.upvote);
-      setTrendingPosts(sortedByUpvotes.slice(0, 5));
-
-      const authorPostCount = uniquePosts.reduce((acc, post) => {
-        if (!acc[post.authorAddress]) {
-          acc[post.authorAddress] = {
-            authorAddress: post.authorAddress,
-            username: post.username,
-            postCount: 0,
-          };
-        }
-        acc[post.authorAddress].postCount += 1;
-        return acc;
-      }, {});
-
-      const sortedAuthors = Object.values(authorPostCount).sort((a, b) => b.postCount - a.postCount);
-      setTrendingAccounts(sortedAuthors.map((author, index) => ({
-        id: index.toString(),
-        authorAddress: author.authorAddress,
-        username: author.username,
-        category: "Author",
-      })));
+      setPostAccount(sortedPosts);
+      setDisplayedPosts(sortedPosts.slice(0, CHUNK_SIZE)); // Load the initial chunk of posts
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
   };
 
+  // Effect to fetch posts when the component mounts
   useEffect(() => {
-    fetchPosts(currentPage);
-  }, [connection, publicKey, program, wallet, currentPage]);
+    fetchPosts();
+  }, [connection, publicKey, program]);
 
+  // Infinite scroll: Load more posts when the last post element is visible
+  const lastPostElementRef = useCallback(
+    (node) => {
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && visibleCount < postAccount.length) {
+          setVisibleCount((prevCount) => prevCount + CHUNK_SIZE);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [visibleCount, postAccount.length]
+  );
+
+  // Update displayed posts when visible count changes
   useEffect(() => {
-    let filtered = postAccount;
+    setDisplayedPosts(postAccount.slice(0, visibleCount));
+  }, [visibleCount, postAccount]);
 
-    if (selectedCategory !== "all") {
-      filtered = filtered.filter(
-        (post) => post.category === selectedCategory
-      );
-    }
-
-    if (searchQuery) {
-      filtered = filtered.filter(
-        (post) =>
-          post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          post.body.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    setFilteredPosts(filtered);
-  }, [selectedCategory, postAccount, searchQuery]);
-
+  // Handle category change
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    setPosts([]);
-    setCurrentPage(1);
+    setDisplayedPosts([]); // Reset displayed posts on category change
+    setVisibleCount(CHUNK_SIZE); // Reset visible count
   };
 
+  // Handle search input change with debounce
   const debouncedSearchChange = useCallback(
     debounce((value) => {
       setSearchQuery(value);
@@ -125,18 +104,47 @@ const ReadPage = () => {
     debouncedSearchChange(event.target.value);
   };
 
-  const lastPostElementRef = useCallback(
-    (node) => {
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && currentPage * PAGE_SIZE < totalPosts) {
-          setCurrentPage((prevPage) => prevPage + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [currentPage, totalPosts]
+  // Filter posts based on category and search query
+  const filteredPosts = displayedPosts.filter(
+    (post) =>
+      (selectedCategory === "all" || post.category === selectedCategory) &&
+      (post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.body.toLowerCase().includes(searchQuery.toLowerCase()))
   );
+
+  // Memoize trending posts calculation to prevent frequent re-renders
+  const trendingPosts = useMemo(() => {
+    return postAccount
+      .slice()
+      .sort((a, b) => b.upvote - a.upvote)
+      .slice(0, 5); // Top 5 trending posts by upvotes
+  }, [postAccount]);
+
+  // Memoize trending accounts calculation and limit to 5 accounts
+  const trendingAccounts = useMemo(() => {
+    const authorPostCount = postAccount.reduce((acc, post) => {
+      if (!acc[post.authorAddress]) {
+        acc[post.authorAddress] = {
+          authorAddress: post.authorAddress,
+          username: post.username,
+          postCount: 0,
+        };
+      }
+      acc[post.authorAddress].postCount += 1;
+      return acc;
+    }, {});
+
+    // Sort authors by the number of posts and limit to top 5
+    return Object.values(authorPostCount)
+      .sort((a, b) => b.postCount - a.postCount)
+      .slice(0, 5) // Display only the top 5 accounts
+      .map((author, index) => ({
+        id: index.toString(),
+        authorAddress: author.authorAddress,
+        username: author.username,
+        category: "Author",
+      }));
+  }, [postAccount]);
 
   return (
     <div className={styles.container}>
@@ -161,9 +169,7 @@ const ReadPage = () => {
           ) : (
             <p>No posts found</p>
           )}
-        </div>
-        <div className={styles.pagination}>
-          <div ref={lastPostElementRef}></div>
+          <div ref={lastPostElementRef}></div> {/* Last element to trigger infinite scroll */}
         </div>
       </div>
 
@@ -171,9 +177,7 @@ const ReadPage = () => {
         <div className={styles.section}>
           <h1>Trending Posts</h1>
           {trendingPosts.length > 0 ? (
-            trendingPosts.map((post) => (
-              <PostElement key={post.id} post={post} />
-            ))
+            trendingPosts.map((post) => <PostElement key={post.id} post={post} />)
           ) : (
             <p>No trending posts</p>
           )}
@@ -187,6 +191,17 @@ const ReadPage = () => {
           ) : (
             <p>No trending accounts</p>
           )}
+        </div>
+        <div className={styles.links}>
+          <Link href="/" className={styles.about}>
+            Documentation
+          </Link>
+          <Link href="/" className={styles.about}>
+            Terms of Service
+          </Link>
+          <Link href="/about" className={styles.about}>
+            Learn more
+          </Link>
         </div>
       </div>
     </div>
