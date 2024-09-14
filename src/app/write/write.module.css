@@ -2,11 +2,12 @@
     display: flex;
     flex-direction: column;
     border-radius: 20px;
-    height: calc(100vh - 110px - 60px);
+    height: calc(100vh - 80px);
     gap: 10px;
     color: var(--textColor);
     padding-inline:400px;
-}
+    margin-bottom: 20px; /* Add space at the bottom */
+  }
 .textareaTitle,
 .textareaSubtitle {
   background-color: transparent;
@@ -68,27 +69,21 @@
 
 
 .button {
-    min-width: 120px;
-    padding: 10px ;
+    padding: 10px 20px ;
     font-weight:500;
     border-radius: 0.5rem;
     text-align: center;
-    background-color: var(--softBg);
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 5px;
+    background-color: var(--textColor);
+    color: var(--bg);
+    border: 1px solid var(--softTextColor);
+    border-radius: 9999px;
     cursor: pointer;
     font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1; /* Ensure it appears above other content inside the banner */
-    transition: border-color 0.3s ease; /* Smooth transition for hover effect */
+    z-index: 1; 
   }
-
-.button:hover{
-  background-color: var(--accent-hover);
-}
 
 .icon {
     color: rgb(0, 255, 170); /* Green color */
