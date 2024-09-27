@@ -20,7 +20,7 @@ const WalletConnectProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     // <ConnectionProvider endpoint={'https://yolo-morning-yard.solana-devnet.quiknode.pro/0d90ab7feefcfce268e695b29e43f84ade7170af/'}>
-        <ConnectionProvider endpoint={'https://devnet.helius-rpc.com/?api-key=056b62dd-0d29-46df-9367-a875f5e2ef14'}>
+        <ConnectionProvider endpoint={'https://devnet.helius-rpc.com/?api-key=056b62dd-0d29-46df-9367-a875f5e2ef14/'}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>{children}</WalletModalProvider>
       </WalletProvider>
