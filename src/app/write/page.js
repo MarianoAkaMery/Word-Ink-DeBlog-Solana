@@ -42,7 +42,7 @@ const WritePage = () => {
       const initializeAkord = async () => {
         try {
           const email = "marianolibrici2002@gmail.com";
-          const password = "Word-Ink-DeBlog-Solana!";
+          const password = "Tradate2002!";
 
           const { wallet, jwt } = await Auth.signIn(email, password);
           console.log(wallet);
