@@ -34,7 +34,7 @@ To get started with Workdink, follow these steps:
 
 1. **Clone the repository**:
     ```bash
-    git clone [https://github.com/yourusername/workdink](https://github.com/MarianoAkaMery/wordink-DeSci.git
+    git clone [https://github.com/yourusername/workdink](https://github.com/MarianoAkaMery/wordink-DeSci.git)
     cd workdink
     ```
 
